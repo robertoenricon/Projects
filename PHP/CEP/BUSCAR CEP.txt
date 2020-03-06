@@ -1,0 +1,15 @@
+if(isset($_POST['document'])){
+			$content 	= file_get_contents('http://www.receitaws.com.br/v1/cnpj/' . $_POST['document']);
+			$content 	= @json_decode($content);
+
+			if(!$content) {
+				echo json_encode(
+					array(
+						'success'	=> false,
+						'message'	=> 'Erro ao recuperar informações do CNPJ.',
+					)
+				);
+				
+				return false;
+			}
+		}

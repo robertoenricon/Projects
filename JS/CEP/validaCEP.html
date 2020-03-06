@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>VALIDA CEP</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+  </head>
+  <body>
+      
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Validar CEP</h2>
+          <form method="POST" id="validaCEP">
+            <input class="form-control" id="limpaCEP"><br>
+            <button type="submit" class="btn btn-outline-danger">Validar</button>
+            <p><h4 id="validado"></h4></p>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    <script>
+      $(document).ready(function(){
+            $('.provider-zipcode').on('change', function() {
+      show_message('', '');
+      if($('.provider-country').val()!='105')
+        return false;
+
+      var cep   = $(this).val().replace('-', '');
+
+      if(cep == '' || cep.length != 8) {
+        show_message('danger', 'CEP digitado incorretamente'); 
+      }
+
+      $.ajax({
+        type  : 'GET',
+        url   : '//api.postmon.com.br/v1/cep/' + cep,
+        success : function(data) {
+          if(typeof data.logradouro != 'undefined')
+            $('#provider-address').val(data.logradouro);
+
+          if(typeof data.bairro != 'undefined')
+            $('#provider-neighborhood').val(data.bairro);
+          
+          if(typeof data.cidade != 'undefined')
+            $('#provider-city-name').val(data.cidade);
+
+          if(typeof data.cidade_info != 'undefined')
+            $('#provider-city-code').val(data.cidade_info.codigo_ibge.substr(2, 5));
+
+          $('#provider-state option').each(function(){
+            if($(this).attr('value').toUpperCase() == (typeof data.uf == 'undefined' ? data.estado : dados.uf).toUpperCase()) {
+              $(this).attr('selected', 'selected');
+            } else {
+              $(this).removeAttr('selected');
+            }
+          });
+
+          $('body').trigger('marker');
+
+          return true;
+        },
+        error   : function() {
+          $.ajax({
+            type  : 'GET',
+            url   : 'http://viacep.com.br/ws/'+cep+'/json/',
+            statusCode: {
+              404: function () {
+                show_message('danger', 'CEP Não encontrado');
+              }
+            },
+            success : function(data) {
+              if(data.erro != true){
+                if(typeof data.logradouro != 'undefined')
+                $('#provider-address').val(data.logradouro);
+      
+                if(typeof data.bairro != 'undefined')
+                  $('#provider-neighborhood').val(data.bairro);
+                
+                if(typeof data.cidade != 'undefined')
+                  $('#provider-city-name').val(data.cidade);
+      
+                if(typeof data.cidade_info != 'undefined')
+                  $('#provider-city-code').val(data.cidade_info.codigo_ibge.substr(2, 5));
+      
+                $('#provider-state option').each(function(){
+                  if($(this).attr('value').toUpperCase() == (typeof data.uf == 'undefined' ? data.estado : dados.uf).toUpperCase()) {
+                    $(this).attr('selected', 'selected');
+                  } else {
+                    $(this).removeAttr('selected');
+                  }
+                });
+              }else{
+                show_message('danger', 'Informar um CEP valido');
+              }
+    
+              $('body').trigger('marker');
+    
+              return true;
+            },
+          })
+        }
+      })
+    });
+      }); 
+    </script>
+        
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  </body>
+</html>

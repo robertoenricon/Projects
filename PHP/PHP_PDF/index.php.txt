@@ -1,0 +1,222 @@
+<?php
+require_once('../inc/cfg.inc.php');
+if(!isset($_SESSION['user']['logged']) && $_SESSION['user']['logged'] !== 1){
+	header('Location: login.php');
+	exit;
+}
+
+$pedido = explode('/', $_GET['Val1']);
+
+$qr['tipo'] = 'select';
+$qr['query'] = "SELECT C5_FILIAL, C5_NUM, /*pedido.DtPedido*/ C5_OBS_OS, C5_EMISSAO,
+A1_LOJA, A1_COD, A1_CGC, A1_INSCR, A1_NREDUZ, A1_NOME, A1_END, A1_EST,
+C5_TIPO, A1_BAIRRO, A1_MUN, A1_CEP, A1_VEND, A3_COD, A3_NREDUZ, A3_EMAIL FROM SC53W0 SC5
+INNER JOIN SA13W0 SA1 ON SC5.D_E_L_E_T_ <> '*' AND SA1.D_E_L_E_T_ <> '*' AND
+C5_FILIAL = '00' AND A1_FILIAL = '' AND A1_COD = C5_CLIENTE INNER JOIN SA33W0
+SA3 ON SA3.D_E_L_E_T_ <> '*' AND A3_FILIAL = '' AND A3_COD = A1_VEND WHERE
+C5_FILIAL = '".$pedido[0]."' AND C5_NUM = '".$pedido[1]."' AND A1_VEND IN (".$_SESSION['user']['id'].")";
+
+$consulta = new consultas();
+$result = $consulta->select($qr);
+
+require_once('../inc/fpdf/fpdf.php');
+
+$pdf = new FPDF('P','mm','A4');
+
+$pdf->Open();
+$pdf->AddPage();
+$pdf->SetFont('Helvetica', 'B', 6);
+$pdf->SetSubject("Pedido de Venda:" . $_GET['Val1']);
+
+// CELL(LARGURA, ALTURA)
+$titulo="Pedido de venda Nº ".$_GET['Val1']." | Data Emissão: ".date('d/m/Y', $result[0]['C5_EMISSAO']);
+$pdf->Cell(0,5,$titulo,0);
+$pdf->Cell(0,5,'WebTrade - 2F Consultoria',0,1,'R');
+$pdf->Cell(0,0,html_entity_decode("Representante: ".$result[0]['A1_NREDUZ'] ." - Cód:". $result[0]['A1_VEND']),0);
+$pdf->Image("../../images/logo.jpg",92,3,30,21);
+
+/* SECTION */
+$pdf->SetFont('Helvetica', 'B', 7);
+//ROW
+// $pdf->SetY(27);
+// $pdf->Cell(0,5,html_entity_decode("Código do Cliente: ".$result[0]['A1_COD']),0,1,'L');
+// $pdf->SetY(27);
+// $pdf->Cell(0,5,html_entity_decode("Razão Social: ".substr($result[0]['A1_NOME'], 0, 48)),0,1,'C');
+// $pdf->SetY(27);
+// $pdf->Cell(0,5,html_entity_decode("Fantasia: ".$result[0]['A1_NREDUZ']),0,1,'R');
+
+$pdf->SetXY(10, 27);
+$pdf->Cell(0,5,html_entity_decode("Código do Cliente: ".$result[0]['A1_COD']),0,1,'L');
+$pdf->SetXY(50, 27);
+$pdf->Cell(0,5,html_entity_decode("Razão Social: ".substr($result[0]['A1_NOME'], 0, 48)),0,1,'L');
+$pdf->SetXY(150, 27);
+$pdf->Cell(0,5,html_entity_decode("Fantasia: ".$result[0]['A1_NREDUZ']),0,1,'L');
+
+//ROW
+$pdf->SetXY(10, 30);
+$pdf->Cell(0,5,html_entity_decode("End: ".$result[0]['A1_END']),0,1,'L');
+$pdf->SetXY(75, 30);
+$pdf->Cell(0,5,html_entity_decode("Bairro: ". $result[0]['A1_BAIRRO']),0,1,'L');
+$pdf->SetXY(130, 30);
+$pdf->Cell(0,5,html_entity_decode("Cidade:". $result[0]['A1_MUN']),0,1,'L');
+
+//ROW
+$pdf->SetXY(10, 33);
+$pdf->Cell(0,5,html_entity_decode("Estado: ".$result[0]['A1_EST']),0,1,'L');
+$pdf->SetXY(25, 33);
+$pdf->Cell(0,5,html_entity_decode("CEP: ".$result[0]['A1_CEP']),0,1,'L');
+$pdf->SetXY(45, 33);
+$pdf->Cell(0,5,html_entity_decode("IE: ". $result[0]['A1_INSCR']),0,1,'L');
+$pdf->SetXY(70, 33);
+$pdf->Cell(0,5,html_entity_decode("CNPJ: ".$result[0]['A1_CGC']),0,1,'L');
+/* END SECTION */
+
+/* TABELA */
+$pdf->SetLineWidth(0.5);
+$pdf->SetDrawColor(202,0,0);
+$pdf->Line(10,40.5,200,40.5);
+$pdf->Cell(10,10,html_entity_decode("Seq."), 0);
+$pdf->Cell(18,10,html_entity_decode("Código"), 0);
+$pdf->Cell(60,10,html_entity_decode("Descrição"), 0);
+$pdf->Cell(10,10,html_entity_decode("Qtde"), 0);
+$pdf->Cell(13,10,html_entity_decode("%Uni"), 0);
+$pdf->Cell(15,10,html_entity_decode("Uni"),0);
+$pdf->Cell(20,10,html_entity_decode("c/ Desc Uni"), 0);
+$pdf->Cell(19,10,html_entity_decode("Bruto"), 0);
+$pdf->Cell(22,10,html_entity_decode("Bruto c/ Desc"), 0);
+$pdf->Line(10,45.5,200,45.5);
+$pdf->ln();
+/* END TABELA */
+
+$qr['tipo'] = 'select';
+$qr['query'] = "SELECT C6_ITEM, C6_FILIAL, C6_NUM, C6_PRODUTO, C6_DESCRI, C6_PRUNIT,
+C6_QTDVEN, C6_XDESCON, C6_PRCVEN FROM SC63W0 SC6 WHERE SC6.D_E_L_E_T_
+<> '*' AND C6_FILIAL = '00' AND C6_FILIAL = '".$pedido[0]."' AND C6_NUM = '".$pedido[1]."' ORDER BY C6_ITEM ASC";
+
+$result = $consulta->select($qr);
+
+$PosicaoProdutos = 39;
+$PulaLinha = 0;
+$itemArray = array('qtdItem' => 0, 'valorTotal' => 0, 'descTotal' => 0);
+
+// foreach($result as $row){
+foreach($result as $key => $row){
+	$ValorProdutoNegociado = $row['C6_PRCVEN']*$row['C6_QTDVEN'];
+	$ValorProdutoBruto = $row['C6_PRUNIT']*$row['C6_QTDVEN'];
+
+	$itemArray['qtdItem']++;
+	$itemArray['valorTotal'] += ($row['C6_QTDVEN'] * $row['C6_PRCVEN']);
+	$itemArray['descTotal'] += $row['C6_XDESCON'];
+
+	$PulaLinha++;
+
+	if($PulaLinha <= 44){
+		$pdf->Cell(10,5,html_entity_decode($row['C6_ITEM']),0);
+		$pdf->Cell(12,5,html_entity_decode($row['C6_PRODUTO'] ),0);
+		$pdf->Cell(67,5,html_entity_decode($row['C6_DESCRI']),0);
+		$pdf->Cell(10,5,html_entity_decode($row['C6_QTDVEN']),0);
+		$pdf->Cell(13,5,html_entity_decode(number_format($row['C6_XDESCON'], 2, ',', '.')." %"),0);
+		$pdf->Cell(16,5,html_entity_decode("R$ ".number_format($row['C6_PRUNIT'], 2, ',', '.')),0);
+		$pdf->Cell(17,5,html_entity_decode("R$ ".number_format($row['C6_PRCVEN'], 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoBruto, 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoNegociado, 2, ',', '.')),0);
+		$pdf->ln();	
+
+	}else if($key == 44){
+		$pdf->AddPage();
+		$PulaLinha=0;
+
+		$pdf->SetLineWidth(0.5);
+		$pdf->SetDrawColor(202,0,0);
+		$pdf->Line(10,12.5,200,12.5);
+		$pdf->Cell(10,10,html_entity_decode("Seq."), 0);
+		$pdf->Cell(18,10,html_entity_decode("Código"), 0);
+		$pdf->Cell(60,10,html_entity_decode("Descrição"), 0);
+		$pdf->Cell(10,10,html_entity_decode("Qtde"), 0);
+		$pdf->Cell(13,10,html_entity_decode("%Uni"), 0);
+		$pdf->Cell(15,10,html_entity_decode("Uni"),0);
+		$pdf->Cell(20,10,html_entity_decode("c/ Desc Uni"), 0);
+		$pdf->Cell(19,10,html_entity_decode("Bruto"), 0);
+		$pdf->Cell(22,10,html_entity_decode("Bruto c/ Desc"), 0);
+		$pdf->Line(10,17.5,200,17.5);
+		$pdf->ln();
+
+		$pdf->Cell(10,5,html_entity_decode($row['C6_ITEM']),0);
+		$pdf->Cell(12,5,html_entity_decode($row['C6_PRODUTO'] ),0);
+		$pdf->Cell(67,5,html_entity_decode($row['C6_DESCRI']),0);
+		$pdf->Cell(10,5,html_entity_decode($row['C6_QTDVEN']),0);
+		$pdf->Cell(13,5,html_entity_decode(number_format($row['C6_XDESCON'], 2, ',', '.')." %"),0);
+		$pdf->Cell(16,5,html_entity_decode("R$ ".number_format($row['C6_PRUNIT'], 2, ',', '.')),0);
+		$pdf->Cell(17,5,html_entity_decode("R$ ".number_format($row['C6_PRCVEN'], 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoBruto, 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoNegociado, 2, ',', '.')),0);
+		$pdf->ln();
+	}else if($key > 44){
+		$pdf->AddPage();
+		$PulaLinha=0;
+
+		$pdf->SetLineWidth(0.5);
+		$pdf->SetDrawColor(202,0,0);
+		$pdf->Line(10,12.5,200,12.5);
+		$pdf->Cell(10,10,html_entity_decode("Seq."), 0);
+		$pdf->Cell(18,10,html_entity_decode("Código"), 0);
+		$pdf->Cell(60,10,html_entity_decode("Descrição"), 0);
+		$pdf->Cell(10,10,html_entity_decode("Qtde"), 0);
+		$pdf->Cell(13,10,html_entity_decode("%Uni"), 0);
+		$pdf->Cell(15,10,html_entity_decode("Uni"),0);
+		$pdf->Cell(20,10,html_entity_decode("c/ Desc Uni"), 0);
+		$pdf->Cell(19,10,html_entity_decode("Bruto"), 0);
+		$pdf->Cell(22,10,html_entity_decode("Bruto c/ Desc"), 0);
+		$pdf->Line(10,17.5,200,17.5);
+		$pdf->ln();
+
+		$pdf->Cell(10,5,html_entity_decode($row['C6_ITEM']),0);
+		$pdf->Cell(12,5,html_entity_decode($row['C6_PRODUTO'] ),0);
+		$pdf->Cell(67,5,html_entity_decode($row['C6_DESCRI']),0);
+		$pdf->Cell(10,5,html_entity_decode($row['C6_QTDVEN']),0);
+		$pdf->Cell(13,5,html_entity_decode(number_format($row['C6_XDESCON'], 2, ',', '.')." %"),0);
+		$pdf->Cell(16,5,html_entity_decode("R$ ".number_format($row['C6_PRUNIT'], 2, ',', '.')),0);
+		$pdf->Cell(17,5,html_entity_decode("R$ ".number_format($row['C6_PRCVEN'], 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoBruto, 2, ',', '.')),0);
+		$pdf->Cell(20,5,html_entity_decode("R$ ".number_format($ValorProdutoNegociado, 2, ',', '.')),0);
+		$pdf->ln();
+	}
+}
+
+
+$qr['tipo'] = 'select';
+$qr['query'] = "SELECT C5_FILIAL, C5_NUM, C5_CONDPAG, E4_DESCRI, C5_DESC1, /*Pedido.TotProduto*/
+C5_MENNOT1, C5_VEND1
+FROM SC53W0 SC5
+INNER JOIN SE43W0 SE4 ON SE4.D_E_L_E_T_ <> '*' AND C5_FILIAL = '00' AND E4_FILIAL = '' AND E4_CODIGO = C5_CONDPAG
+INNER JOIN SA13W0 SA1 ON SA1.D_E_L_E_T_ <> '*' AND A1_FILIAL = '' AND A1_COD = C5_CLIENTE AND A1_LOJA = C5_LOJACLI AND A1_VEND IN (".$_SESSION['user']['id'].")
+WHERE 3=3
+AND SC5.D_E_L_E_T_ <> '*'
+AND C5_FILIAL = '".$pedido[0]."'
+AND C5_NUM = '".$pedido[1]."'";
+
+$result = $consulta->select($qr);
+
+$LinhaTotal=20+$PosicaoProdutos+$PulaLinha;
+$pdf->Line(10,$LinhaTotal,200,$LinhaTotal);
+$pdf->SetFont('times', 'B', 8);
+$pdf->SetXY(10, $LinhaTotal);
+$pdf->Cell(0,5,html_entity_decode("Perc. de Desc. no Total: ".number_format($result[0]['C5_DESC1'], 2, ',', '.')."% | Desc.  Médio Negociação: ".number_format(($itemArray['descTotal']/$itemArray['qtdItem']), 2, ',', '.'))."% ",0,1,'L');
+$pdf->SetXY(10, $LinhaTotal+3);
+$pdf->Cell(0,5,html_entity_decode("Total do Pedido: ".number_format($itemArray['valorTotal'], 2, ',', '.')),0,1,'L');
+
+$pdf->SetXY(10, $LinhaTotal+6);
+$pdf->Cell(0,5,html_entity_decode("Condição Pgto: ".$result[0]['C5_CONDPAG'] ." - ".$result[0]['E4_DESCRI']),0,1,'L');
+if(!empty($result[0]['C5_MENNOT1'])){
+	$pdf->MultiCell(0,5,html_entity_decode("Observações : ".$result[0]['C5_MENNOT1']));
+}
+// $pdf->MultiCell(0,5,html_entity_decode("Observações : ".$result[0]['C5_MENNOT1']));
+
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="'.$result[0]['C5_NUM'].'.pdf"');
+header('Cache-Control: private, max-age=0, must-revalidate');
+header('Pragma: public');
+//$pdf->SetTitle($result[0]['C5_NUM'].'.pdf');
+// $pdf->output($result[0]['C5_NUM'].'.pdf', 'D');
+$pdf->output($result[0]['C5_NUM'].'.pdf', 'I');
+?>

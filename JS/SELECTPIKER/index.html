@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>SelectPiker - Ajax</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    
+    <!-- SELECTPICKER -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet" />
+
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h3>SELECTPIKER</h3>
+          <select id="search" class="selectpicker" data-live-search="true">
+            <option value="">Selecione</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <h3>SELECTPIKER MULTIPLE</h3>
+          <select class="selectpicker" data-live-search="true" multiple>
+            <option value="Banana">Banana</option>
+            <option value="Pera">Pera</option>
+            <option value="Melancia">Melancia</option>
+            <option value="Abobora">Abobora</option>
+            <option value="Melão">Melão</option>
+          </select>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <h3>SELECTPIKER ICON</h3>
+          <select class="selectpicker">
+            <option data-icon="glyphicon fa-heart">Ketchup</option>
+          </select>
+        </div>
+      </div>
+      <br>
+      <hr>
+      <p>Mais opções em https://thdoan.github.io/bootstrap-select/examples.html</p>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $('.selectpicker').selectpicker({
+          noneResultsText : "Not Found",
+        });
+
+        $.ajax({
+          type: 'POST',
+          url: 'search.php',
+          success: function(data) {
+            console.log(data);
+          }
+        });
+      });
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- SELECTPICKER -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/js/bootstrap-select.min.js"></script>
+
+  </body>
+</html>
+</html>

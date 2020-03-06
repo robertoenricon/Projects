@@ -1,0 +1,17 @@
+
+
+
+
+
+var validaInput = $(".verify-deliverydate").val();
+//numeros de 0-9 e somente 3 digios			
+var validaDate = new RegExp("^([0-9]{0,3})$");
+
+
+			if (!validaDate.test(validaInput)) {
+				swal("Atenção!", 'Informar a quantidade em dias uteis no Campo: "Prazo em dias uteis"', "warning");
+				$(".verify-deliverydate").addClass("alert alert-danger");
+			}else{
+
+
+$(this).val(this.value.match(/[0-9]*/));

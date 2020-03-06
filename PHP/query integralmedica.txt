@@ -1,0 +1,20 @@
+
+$data['product'] = "CRIAR UM ARRAY PRA ELE"
+
+if(isset($data['product'])){
+            foreach ($data['product'] as $key => $product) {
+                $productids[$product['productid']] = "'$product[productid]'";
+            }
+            if($productids){
+                $productids = implode(', ', $productids);
+                $qr = array(
+                    'tipo' => 'select',
+                    'query' => "SELECT Q.REQUEST, QI.PRODUCTID FROM IM_QUOTATION Q
+                        INNER JOIN IM_QUOTATION_ITEM QI ON QI.ORDERID = Q.ID
+                        WHERE Q.REQUEST = '$request' 
+                        AND QI.PRODUCTID IN ($productids)
+                        GROUP BY Q.REQUEST, QI.PRODUCTID"
+                );
+                $registers = $db->query($qr);
+            }
+        }

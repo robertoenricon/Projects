@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>VALIDA CNPJ</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+  </head>
+  <body>
+      
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Validar CNPJ</h2>
+          <form method="POST" id="validaCNPJ">
+            <input class="form-control" id="limpaCNPJ"><br>
+            <button type="submit" class="btn btn-outline-danger">Validar</button>
+            <p><h4 id="validado"></h4></p>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+    <script>
+      $(document).ready(function(){
+        $('#validaCNPJ').bind('submit', function(e) {
+          e.preventDefault();
+          
+          var cnpj	= $('#limpaCNPJ').val().replace(/(?!(\d))([\w\.\/\-])/g, '');
+          
+          // var cnpj = '09623677000158'; //CNPJ invalido
+
+          // var cnpj = '34855862000118'; //Erro Time-out
+
+          // var cnpj = '35.417.058/0001-10';
+
+          if(cnpj != '' && cnpj.length != 14) {
+            $('#validado').html('Atenção! CNPJ com número de digitos inválido!'); 
+          }
+                    
+          $.ajax({
+            type 	: 'POST',
+            url 	: 'valida.script.php',
+            data 	: { 
+              'cnpj'	: cnpj,
+            },
+            statusCode: {
+              //caira aqui se a requisição for passada errada
+              404: function () {
+                $('#validado').html("Página não encontrada");
+              }
+            },
+            beforeSend: function() {
+              $('#validado').html("Aguarde, Carregando...");
+            }, 
+            success : function(data) {
+              // if(_patt_json.test(data)) {
+                // data   = data.matcsh(_patt_json)[0];
+              retornoAPI 	= $.parseJSON(data);
+              console.log(retornoAPI);
+              
+              if(!data){
+                $('#validado').html('dasdas');
+              }else if(retornoAPI.info.status == "OK") {
+                $('#validado').html(
+                  "Nome: "+retornoAPI.info.nome+'<br>'+
+                  "Porte: "+retornoAPI.info.porte+'<br>'+
+                  "Status: "+retornoAPI.info.status
+                );
+              }else if(retornoAPI.info.status == "ERROR") {
+                $('#validado').html(retornoAPI.info.message);
+              }
+            },
+            error 	: function(data) {
+              alert("Erro:");
+            }
+          });
+        });
+      }); 
+    </script>
+        
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  </body>
+</html>

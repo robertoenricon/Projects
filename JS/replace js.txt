@@ -1,0 +1,4 @@
+
+remove caracter do cep 
+
+cep.replace(/(?!(\d))([\w\.\/\-])/g,'')

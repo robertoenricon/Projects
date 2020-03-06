@@ -1,0 +1,1 @@
+$.cookie('accepted', true, { expires: 365 });
