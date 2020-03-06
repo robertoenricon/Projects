@@ -62,7 +62,7 @@ $stmt->execute();
             </tr>
           </thead>
           <?php while ($row = $stmt->fetch()) { ?>
-          <input type="hidden" id="update" value="<?php print $row['id'];?>">
+          <input type="hidden" id="update-<?php print $row['id'];?>" value="<?php print $row['id'];?>">
           
           <tbody>
             <tr>
@@ -220,9 +220,9 @@ $stmt->execute();
           json = JSON.parse(success);
           console.log(json);
 
-          $.each(json, function(i, value) {
+          $.each(json, function(i, index) {
             $('#listar').append(
-              '<td>'+value+'</td>'
+              '<td>'+i.nome+'</td>'
             )
           });
 

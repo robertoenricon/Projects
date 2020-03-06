@@ -11,10 +11,10 @@ $sql = "SELECT * FROM crud_ajax";
 $stmt = $pdo->prepare($sql);
 if($stmt->execute()){
     // while ($row = $stmt->fetch()) { 
-    foreach($stmt as $row) { 
+    foreach($stmt as $key => $row) { 
         // $nome = $row['nome'];
         // $idade = $row['idade'];
-        $nome .= 
+        $nome[$key] = 
             array(
                 'nome' => $row['nome'],
                 'idade' => $row['idade'],
