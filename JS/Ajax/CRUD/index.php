@@ -61,23 +61,22 @@ $stmt->execute();
               <th scope="col">Opções</th>
             </tr>
           </thead>
-          <?php while ($row = $stmt->fetch()) { ?>
-          <input type="hidden" id="update-<?php print $row['id'];?>" value="<?php print $row['id'];?>">
+          <?php //while ($row = $stmt->fetch()) { ?>
+          <!-- <input type="hidden" id="update-<?php //print $row['id'];?>" value="<?php //print $row['id'];?>"> -->
           
-          <tbody>
+          <!-- <tbody>
             <tr>
-              <th scope="row" id="returnAjaxNome"><?php print $row['nome']; ?></th>
-              <td id="returnAjaxIdade"><?php print $row['idade']; ?></td>
+              <th scope="row" id="returnAjaxNome"><?php //print $row['nome']; ?></th>
+              <td id="returnAjaxIdade"><?php //print $row['idade']; ?></td>
               <td><button type="button" class="btn btn-outline-primary btn-sm btn-update" data-toggle="modal" data-target="#idModal-<?php print $row['id'];?>" value="<?php print $row['id'];?>">Alterar</button></td>
             </tr>
-          </tbody>
-
-          <tbody id="listar">
-          </tbody>
+          </tbody> -->
+          <tbody id="listar"></tbody>
+          <div id="modalAjax"></div>
 
             <!-- Modal alter -->
-            <form method="POST" id="formUpdate-<?php print $row['id'];?>">
-              <div class="modal fade" id="idModal-<?php print $row['id'];?>">
+            <!-- <form method="POST" id="formUpdate-<?php //print $row['id'];?>">
+              <div class="modal fade" id="idModal-<?php //+++print $row['id'];?>">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -87,9 +86,9 @@ $stmt->execute();
                       </button>
                     </div>
                     <div class="modal-body">
-                      <input type="text" name="id" value="<?php print $row['id']; ?>">
-                      <div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="<?php print $row['nome']; ?>"></div>
-                      <div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="<?php print $row['idade']; ?>"></div>
+                      <input type="text" name="id" value="<?php //print $row['id']; ?>">
+                      <div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="<?php //print $row['nome']; ?>"></div>
+                      <div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="<?php //print $row['idade']; ?>"></div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Fechar</button>
@@ -98,8 +97,8 @@ $stmt->execute();
                   </div>
                 </div>
               </div>
-            </form>
-          <?php } ?>
+            </form> -->
+          <?php //} ?>
           <!-- </tbody> -->
         </table>
       </div>
@@ -118,6 +117,143 @@ $stmt->execute();
 
     <script>
     $(document).ready(function(){
+
+      function listar(paramList){
+        if(paramList != ''){
+          $('#listar').html('');
+          $('#modalAjax').html('');
+          var json = paramList;
+          $.each(json, function(i, index) {
+            $('#listar').append(
+              '<tr id="'+ index.id+'">'+
+              '<td id="returnAjaxNome-'+ index.id+'">'+index.nome+'</td>'+
+              '<td id="returnAjaxIdade-'+ index.id+'">'+index.idade+'</td>'+
+              '<td><button type="button" class="btn btn-outline-primary btn-sm update-'+index.id+'" data-toggle="modal" data-target="#idModal-'+index.id+'">Alterar</button>&nbsp&nbsp'+
+              '<button type="button" class="btn btn-outline-danger btn-sm delete-'+index.id+'" id="'+index.id+'">Deletar</button></td>'+
+              '</tr>'
+            );
+            $('#modalAjax').append(
+              '<form method="POST" class="formUpdate-'+index.id+'" id="'+index.id+'">'+
+              '<div class="modal fade" id="idModal-'+index.id+'">'+
+                '<div class="modal-dialog">'+
+                  '<div class="modal-content">'+
+                    '<div class="modal-header">'+
+                      '<h5 class="modal-title">Alterar Cadastro de Usuário:</h5>'+
+                      '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                      '</button>'+
+                    '</div>'+
+                    '<div class="modal-body">'+
+                      '<input type="text" name="id" value="'+index.id+'">'+
+                      '<div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="'+index.nome+'"></div>'+
+                      '<div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="'+index.idade+'"></div>'+
+                    '</div>'+
+                    '<div class="modal-footer">'+
+                      '<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Fechar</button>'+
+                      '<button type="submit" class="btn btn-outline-success btn-sm salvar">Salvar</button>'+
+                    '</div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>'+
+            '</form>'
+            );
+          });
+        }
+      }
+
+      function deletar(paramDelet){
+        var idDeleted = paramDelet;
+        swal({
+          title : "Confirmar Alteração",
+          html : 'Deseja EXCLUIR o usuário?',
+          type : 'warning',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Confirmar',
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          allowOutsideClick: false,
+        }).then(function (result) {
+          if(result.value === true) {
+            $.ajax({
+              type: 'POST',
+              url: 'deletar.php',
+              data: {'id' : idDeleted},
+              beforeSend: function() {
+                $('.delete-'+idDeleted).html('Aguarde...');
+              },
+              success: function(success) {
+                json = JSON.parse(success);
+                listar(json);
+              },
+            });                  
+          }
+        });
+      }
+
+      function alterar(paramUpdat){
+        var idUpdate = paramUpdat;
+        swal({
+          title : "Confirmar Alteração",
+          html : 'Deseja alterar o usúario?',
+          type : 'warning',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'Confirmar',
+          cancelButtonColor: '#d33',
+          showCancelButton: true,
+          allowOutsideClick: false,
+        }).then(function (result) {
+          if(result.value === true) {
+            $.ajax({
+              type: 'POST',
+              url: 'alterar.php',
+              data: $('.formUpdate-' + idUpdate).serialize(),
+              beforeSend: function() {
+                $('.update-'+idUpdate).html('Aguarde...');
+              },
+              success: function(success) {
+                json = JSON.parse(success);
+                $('#idModal-' + idUpdate).modal('toggle');
+                $('#returnAjaxNome-'+ idUpdate).html(json.nome);
+                $('#returnAjaxIdade-'+ idUpdate).html(json.idade);
+                $('.update-'+idUpdate).html('Alterar');
+
+              },
+            });                  
+          }
+        });
+      }
+
+      //LISTAR > UPDATE > DELETE
+      $.ajax({
+        type: 'GET',
+        url: 'listar.php',
+        success: function(success) {
+          json = JSON.parse(success);
+          listar(json);
+          $.each(json, function(i, index) {
+            
+            //UPDATE
+            $('.update-'+index.id).click(function(){
+              $('#modalAjax, .formUpdate-' + index.id).bind('submit', function(event) {
+                event.preventDefault();
+                var idUpdate = $('.formUpdate-' + index.id).attr('id');
+                console.log('update: '+idUpdate);
+                alterar(idUpdate);
+                // listar(json);
+              });
+            });
+
+            //DELETE
+            $('.delete-'+index.id).click(function(){
+              var idDeleted = $(this).attr('id');
+              console.log('delete: '+idDeleted);
+              deletar(idDeleted);
+            });
+
+          });
+
+        },
+      });
       
       $('#btnCadastrar').bind('submit', function(event) {
         event.preventDefault();
@@ -131,171 +267,6 @@ $stmt->execute();
           data: $('#btnCadastrar').serialize(),
           success: function(success) {
             $("#listar").html(success);
-          }
-        });
-      });
-
-      load_data();
-      $("#search_idade").change(function(){
-        var idade = $(this).val();
-        if(idade != ''){
-          load_data(idade);
-        }
-        // else{
-        //   load_data();
-        // }
-      })
-      $('#search').keyup(function(){
-        var search = $(this).val();
-        if(search != ''){
-          load_data(search);
-        }
-        // else{
-        //   load_data();
-        // }
-      });
-
-      function load_data(result){
-        if(result != ''){
-          $.ajax({
-            method:"POST",
-            url:"search.php",
-            data:{result:result},
-            success:function(data){
-              $('#user').html(data);
-            }
-          });
-        }
-      }
-
-      //UPDATE
-      
-      // var update = array();
-      var update = $('#update').val();
-
-      // $(this).closest('tr').find('.product-itemn').val();
-
-      // $('#update').each(function(){
-      //   var update = $('#update').val();
-        // console.log(update);
-      // });
-        
-      
-      // $.each(json, function(i, value) {
-      //   $('#listar').append(
-      //     '<td>'+value+'</td>'
-      //   )
-      // });
-
-      // $.each($('#update'), function(i, value) {
-      //   each_update = value;
-
-      //   console.log($(this));
-
-      // });
-
-      // $('#update').each(function() {
-      //   var update = $(this).val();
-      // });
-
-      // var update = $('#update').closest('form').find('input').val();
-      // console.log(update);
-      // $('form').each(function() {
-      //     // var update = $(this).closest('form').find('input').val();
-      //     console.log($(this));
-      //   $('.btn-update').on('click', function(){ 
-      //     // var update2 = $('.btn-update').val();
-      //     console.log(update);
-      //   });
-      // });
-
-
-
-      $.ajax({
-        type: 'GET',
-        url: 'listar.php',
-        // dataType:'json',
-        success: function(success) {
-          console.log(success);
-          json = JSON.parse(success);
-          console.log(json);
-
-          $.each(json, function(i, index) {
-            $('#listar').append(
-              '<td>'+i.nome+'</td>'
-            )
-          });
-
-        },
-      });
-
-
-      // console.log(update);
-      // console.log($('#formUpdate-' + update));
-      // return false;
-      $('#formUpdate-' + update).bind('submit', function(event) {
-        event.preventDefault();
-
-        console.log('aqui');
-
-        swal({
-          title : "Confirmar Alteração",
-          html : 'Deseja alterar o usúario?',
-          type : 'warning',
-          confirmButtonColor: '#3085d6',
-          confirmButtonText: 'Confirmar',
-          cancelButtonColor: '#d33',
-          showCancelButton: true,
-          allowOutsideClick: false,
-        }).then(function (result) {
-          if(result.value === true) {
-            let timerInterval
-            Swal.fire({
-              title: 'Contato alterado com sucesso',
-              type : 'success',
-              timer: 2000,
-              timerProgressBar: true,
-              allowOutsideClick: false,
-              onBeforeOpen: () => {
-                Swal.showLoading()
-                timerInterval = setInterval(() => {
-                  const content = Swal.getContent()
-                  if (content) {
-                    const b = content.querySelector('b')
-                    if (b) {
-                      b.textContent = Swal.getTimerLeft()
-                    }
-                  }
-                }, 100)
-              },
-              onClose: () => {
-                clearInterval(timerInterval)
-              }
-            }).then(function (result){
-              if (result.dismiss === Swal.DismissReason.timer) {
-                $.ajax({
-                  type: 'POST',
-                  url: 'alterar.php',
-                  data: $('#formUpdate-' + update).serialize(),
-                  success: function(success) {
-                    json = JSON.parse(success);
-
-                    console.log(success);
-
-                    $('#idModal-' + update).modal('toggle');
-                    $("#returnAjaxNome").html(json.nome);
-                    $("#returnAjaxIdade").html(json.idade);
-
-                    // $.each(json, function(i, value) {
-                    //   $('#listar').append(
-                    //     '<td>'+value+'</td>'
-                    //   )
-                    // });
-
-                  },
-                });
-              }
-            })
           }
         });
       });

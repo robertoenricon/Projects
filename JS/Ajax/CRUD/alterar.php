@@ -7,7 +7,7 @@ if($_POST){
   $nome = $_POST['nome'];
   $idade = $_POST['idade'];
   $id = $_POST['id'];
-  $html = '';
+  $json = array();
 
   $update = "UPDATE crud_ajax SET nome = :nome, idade = :idade WHERE id = :id";
   $stmt = $pdo->prepare($update);
@@ -20,14 +20,16 @@ if($_POST){
     $sql = "SELECT * FROM crud_ajax";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    while ($row = $stmt->fetch()) { 
-      // if($id == $row['id']){
-        print json_encode(array(
-          'nome' => $row['nome'],
-          'idade' => $row['idade'],)
+    foreach($stmt as $key => $row) { 
+      if($id == $row['id']){
+        $json = array(
+            'id' => $row['id'],
+            'nome' => $row['nome'],
+            'idade' => $row['idade'],
         );
-      // }
+      }
     }
+    print_r(json_encode($json));
   } 
 }
 
