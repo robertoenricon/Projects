@@ -61,45 +61,10 @@ $stmt->execute();
               <th scope="col">Opções</th>
             </tr>
           </thead>
-          <?php //while ($row = $stmt->fetch()) { ?>
-          <!-- <input type="hidden" id="update-<?php //print $row['id'];?>" value="<?php //print $row['id'];?>"> -->
           
-          <!-- <tbody>
-            <tr>
-              <th scope="row" id="returnAjaxNome"><?php //print $row['nome']; ?></th>
-              <td id="returnAjaxIdade"><?php //print $row['idade']; ?></td>
-              <td><button type="button" class="btn btn-outline-primary btn-sm btn-update" data-toggle="modal" data-target="#idModal-<?php print $row['id'];?>" value="<?php print $row['id'];?>">Alterar</button></td>
-            </tr>
-          </tbody> -->
           <tbody id="listar"></tbody>
           <div id="modalAjax"></div>
 
-            <!-- Modal alter -->
-            <!-- <form method="POST" id="formUpdate-<?php //print $row['id'];?>">
-              <div class="modal fade" id="idModal-<?php //+++print $row['id'];?>">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Alterar Cadastro de Usuário:</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <input type="text" name="id" value="<?php //print $row['id']; ?>">
-                      <div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="<?php //print $row['nome']; ?>"></div>
-                      <div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="<?php //print $row['idade']; ?>"></div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Fechar</button>
-                      <button type="submit" class="btn btn-outline-success btn-sm salvar">Salvar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form> -->
-          <?php //} ?>
-          <!-- </tbody> -->
         </table>
       </div>
     </div>
@@ -124,39 +89,39 @@ $stmt->execute();
           $('#modalAjax').html('');
           var json = paramList;
           $.each(json, function(i, index) {
-            $('#listar').append(
-              '<tr id="'+ index.id+'">'+
-              '<td id="returnAjaxNome-'+ index.id+'">'+index.nome+'</td>'+
-              '<td id="returnAjaxIdade-'+ index.id+'">'+index.idade+'</td>'+
-              '<td><button type="button" class="btn btn-outline-primary btn-sm update-'+index.id+'" data-toggle="modal" data-target="#idModal-'+index.id+'">Alterar</button>&nbsp&nbsp'+
-              '<button type="button" class="btn btn-outline-danger btn-sm delete-'+index.id+'" id="'+index.id+'">Deletar</button></td>'+
-              '</tr>'
-            );
-            $('#modalAjax').append(
-              '<form method="POST" class="formUpdate-'+index.id+'" id="'+index.id+'">'+
-              '<div class="modal fade" id="idModal-'+index.id+'">'+
-                '<div class="modal-dialog">'+
-                  '<div class="modal-content">'+
-                    '<div class="modal-header">'+
-                      '<h5 class="modal-title">Alterar Cadastro de Usuário:</h5>'+
-                      '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-                        '<span aria-hidden="true">&times;</span>'+
-                      '</button>'+
-                    '</div>'+
-                    '<div class="modal-body">'+
-                      '<input type="text" name="id" value="'+index.id+'">'+
-                      '<div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="'+index.nome+'"></div>'+
-                      '<div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="'+index.idade+'"></div>'+
-                    '</div>'+
-                    '<div class="modal-footer">'+
-                      '<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Fechar</button>'+
-                      '<button type="submit" class="btn btn-outline-success btn-sm salvar">Salvar</button>'+
-                    '</div>'+
-                  '</div>'+
-                '</div>'+
-              '</div>'+
-            '</form>'
-            );
+            // $('#listar').append(
+            //   '<tr id="'+ index.id+'">'+
+            //   '<td id="returnAjaxNome-'+ index.id+'">'+index.nome+'</td>'+
+            //   '<td id="returnAjaxIdade-'+ index.id+'">'+index.idade+'</td>'+
+            //   '<td><button type="button" class="btn btn-outline-primary btn-sm update-'+index.id+'" data-toggle="modal" data-target="#idModal-'+index.id+'">Alterar</button>&nbsp&nbsp'+
+            //   '<button type="button" class="btn btn-outline-danger btn-sm delete-'+index.id+'" id="'+index.id+'">Deletar</button></td>'+
+            //   '</tr>'
+            // );
+            // $('#modalAjax').append(
+            //   '<form method="POST" class="formUpdate-'+index.id+'" id="'+index.id+'">'+
+            //   '<div class="modal fade" id="idModal-'+index.id+'">'+
+            //     '<div class="modal-dialog">'+
+            //       '<div class="modal-content">'+
+            //         '<div class="modal-header">'+
+            //           '<h5 class="modal-title">Alterar Cadastro de Usuário:</h5>'+
+            //           '<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+            //             '<span aria-hidden="true">&times;</span>'+
+            //           '</button>'+
+            //         '</div>'+
+            //         '<div class="modal-body">'+
+            //           '<input type="text" name="id" value="'+index.id+'">'+
+            //           '<div>Nome: <input class="form-control form-control-sm" type="text" name="nome" value="'+index.nome+'"></div>'+
+            //           '<div>Idade: <input class="form-control form-control-sm" type="number" name="idade" value="'+index.idade+'"></div>'+
+            //         '</div>'+
+            //         '<div class="modal-footer">'+
+            //           '<button type="button" class="btn btn-outline-secondary btn-sm" data-dismiss="modal">Fechar</button>'+
+            //           '<button type="submit" class="btn btn-outline-success btn-sm salvar">Salvar</button>'+
+            //         '</div>'+
+            //       '</div>'+
+            //     '</div>'+
+            //   '</div>'+
+            // '</form>'
+            // );
           });
         }
       }
