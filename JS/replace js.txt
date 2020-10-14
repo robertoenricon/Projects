@@ -2,3 +2,6 @@
 remove caracter do cep 
 
 cep.replace(/(?!(\d))([\w\.\/\-])/g,'')
+
+
+value.replace(/[']/g, ''); //espaço em branco
