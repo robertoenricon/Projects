@@ -1,0 +1,144 @@
+
+/* BLOCOS */
+.block-aling{
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+.block{
+  box-shadow: 0 3.2px 7.2px 0 var(--callout-shadow-color,rgba(0, 0, 0, .132)),0 .6px 1.8px 0 var(--callout-shadow-secondary-color,rgba(0, 0, 0, .108));
+  background: #fff;
+  border-radius: 5px;
+  padding: 8px;
+}
+.block .col-sm-3 button{
+  margin-top:4px;
+}
+@media(max-width:580px){
+  .block{
+    margin: 3px 0px;
+  }
+}
+.block > h6{
+  color: #656565;
+  border-bottom: 1px solid rgba(101, 101, 101, 0.1);
+  padding-bottom: 5px;
+}
+.block-success{
+  border-bottom: 1px solid #00d97e;
+}
+.block-danger{
+  border-bottom: 1px solid #f20;
+}
+
+/* FILTROS */
+  .filtro{
+    margin-top: 8px;
+  }
+  .form-data{
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+  }
+  .form-data:focus {
+    border-color: #cccccc;
+    outline: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .form-buttons .form-control{
+    width: 32%;
+    display: inline-flex;
+    margin-right: 3%;
+  }
+  .form-buttons button{
+    padding: 3px 8px;
+  }
+  .filter-avanced{
+    margin-bottom: 5px;
+  }
+  @media(max-width:767px){
+    .form-buttons .form-control{
+      width: 42%;
+    }
+  }
+  @media(max-width:580px){
+    .form-respon{
+      margin: 11px 0px;
+    }
+    .form-buttons .form-control{
+      width: 68%;
+    }
+  }
+  @media(max-width:320px){
+    .form-buttons .form-control{
+      display: block;
+      width: 100%;
+    }
+    .form-buttons button{
+      margin-top: 5%;
+    }
+  }
+
+/* BLOCK VALORES/QTD */
+  .qtd{
+    color: #6e84a3;
+    margin-top: 10px;
+  }
+  .box-2{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    /* background-color: #152e4d; */
+    background-color: #2e353d;  
+    background-clip: border-box;
+    border: 1px solid #1e3a5c;
+    border-radius: .5rem;
+    color: #fff;
+    width: 100%;
+    /* height: 100px; */
+  }
+  .box-2-body{
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 10px;
+  }
+  h6.text-uppercase{
+    letter-spacing: .08em;
+  }
+  .width-icon, .total-text-info{
+    color: #959595!important;
+    font-size: 20px;
+  }
+  .total-text-info{
+    font-size: 20px;
+    text-align: center;
+    flex-grow: 1;
+    justify-items: center;
+  }
+
+  /* PORCENTAGEM */
+  .badge-soft-success{
+    color: #00d97e;
+  }
+  .badge-soft-danger{
+    color: #f20;
+  }
+
+
+  /* MODAL */
+  .btn-modal{
+    border: none;
+    background-color: transparent;
+  }
+
+
+/* RESPONSIVE ------------ */
+
+@media(max-width: 570px){
+  .filtro-responsive{
+    margin: 10px;
+    border-bottom: 2px solid rgba(0, 0, 0, .200);
+  }
+}

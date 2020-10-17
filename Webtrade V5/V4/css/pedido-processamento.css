@@ -1,0 +1,290 @@
+body {
+  font-size: 0.9rem;
+}
+.page-wrapper .sidebar-wrapper,
+#show-sidebar{
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+
+/*-----------------------------chiller-theme-------------------------------------------------*/
+
+.chiller-theme .sidebar-wrapper {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.22) 0px 25.6px 57.6px 0px, rgba(0, 0, 0, 0.18) 0px 4.8px 14.4px 0px;
+}
+
+/*----------------toggeled sidebar----------------*/
+
+.page-wrapper.toggled .sidebar-wrapper {
+  left: 0px;
+}
+
+/* @media screen and (min-width: 768px) {
+  .page-wrapper.toggled .page-content {
+    padding-left: 300px;
+  }
+} */
+
+/*----------------sidebar-wrapper----------------*/
+
+.sidebar-wrapper {
+  width: 300px;
+  height: 100%;
+  max-height: 100%;
+  position: fixed;
+  top: 0;
+  left: -300px;
+  z-index: 999;
+}
+
+.sidebar-wrapper ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-wrapper a {
+  text-decoration: none;
+  color: #6d6c6c;
+}
+
+/* --------------------- BUTTON HEADER -------------------------- */
+.menu-left-button{
+  padding: 0px 10px;
+  display: flex;
+}
+.menu-left-button > a{
+  color: #000;
+}
+.menu-left-button > a:hover{
+  color: #E1251B;
+}
+
+/*----------------sidebar-content----------------*/
+
+.sidebar-content {
+  max-height: calc(100% - 30px);
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  position: relative;
+}
+
+.sidebar-content.desktop {
+  overflow-y: hidden;
+}
+
+/*--------------------sidebar-header----------------------*/
+
+.sidebar-wrapper .sidebar-header {
+  padding: 25px 6px;
+  overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-pic {
+  float: left;
+  margin-right: 10px;
+  overflow: hidden;
+  width: 70px;
+  border: 1px solid;
+  border-radius: 50%;
+  border-color: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.sidebar-wrapper .sidebar-header .user-pic img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.user-info{
+  color: #fff;
+  padding: 0px 10px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info {
+  float: left;
+}
+
+.sidebar-wrapper .sidebar-header .user-info > span {
+  display: block;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-role {
+  font-size: 12px;
+}
+
+/*----------------------sidebar-menu-------------------------*/
+
+.sidebar-wrapper .sidebar-menu {
+  padding-top: 14px;
+  padding-bottom: 10px;
+}
+
+/* .sidebar-wrapper .sidebar-menu ul li a { */
+.block-links li a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: 9px 0px 2px 0px;
+}
+
+.block-link-modulo .dropdown-menu a{
+  background-color: #f8f8f8;
+  padding: 0px 16px;
+}
+
+.block-link-modulo span{
+  box-shadow: 0 3.2px 7.2px 0 var(--callout-shadow-color,rgba(0, 0, 0, .132)),0 .6px 1.8px 0 var(--callout-shadow-secondary-color,rgba(0, 0, 0, .108));
+  background: #fff;
+  /* border-radius: 5px; */
+  padding: 6px 15px;
+}
+
+.block-link-modulo a span i{
+  margin-top: 10px;
+}
+
+.block-links{
+  box-shadow: 0 3.2px 7.2px 0 var(--callout-shadow-color,rgba(0, 0, 0, .132)),0 .6px 1.8px 0 var(--callout-shadow-secondary-color,rgba(0, 0, 0, .108));
+  background: #fff;
+  /* border-radius: 5px; */
+  padding: 12px 20px;
+}
+
+/* .sidebar-menu li{
+  border-bottom: 1px #d7d9dd solid
+} */
+.sidebar-menu .sidebar-submenu li{
+  border-bottom: 1px #d7d9dd solid
+  /* border-bottom: 1px dotted */
+}
+ul li.block-link-modulo{
+  border-bottom: none;
+  margin-bottom: 12px;
+} 
+
+.sidebar-wrapper .sidebar-menu ul li a i {
+  margin-right: 10px;
+  font-size: 15px;
+  /* width: 30px; */
+  /* height: 30px; */
+  /* line-height: 30px; */
+  text-align: center;
+  border-radius: 4px;
+  padding: 0px 5px 8px 5px;
+}
+
+.sidebar-wrapper .sidebar-menu ul li a:hover > i::before {
+  display: inline-block;
+  animation: swing ease-in-out 0.5s 1 alternate;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {
+  padding: 0px 5px;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
+  padding-left: 25px;
+  font-size: 13px;
+}
+
+.theme-integral .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li:hover {
+  border-left: 2px solid #e30613;
+}
+.theme-dark .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li:hover {
+  border-left: 2px solid #000;
+}
+.theme-nutrify .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li:hover {
+  border-left: 2px solid #6bab8a;
+}
+.theme-hopper .sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li:hover {
+  border-left: 2px solid #00BC70;
+}
+
+.sidebar-wrapper .sidebar-menu .sidebar-submenu {
+  display: none;
+}
+
+/* .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+  transform: rotate(90deg);
+  right: 17px;
+} */
+
+.mt-img{
+  margin: 14px;
+}
+
+.img-width{
+  width: 40%;
+}
+
+.line-left-img{
+  border-left: 1px solid #d7d9dd;
+  padding: 3px 10px;
+  margin-left: 19px;
+  margin-right: 6px;
+}
+
+
+/*--------------------------page-content-----------------------------*/
+
+.page-wrapper .page-content {
+  display: inline-block;
+  width: 100%;
+  padding-left: 0px;
+  padding-top: 20px;
+}
+
+.page-wrapper .page-content > div {
+  padding: 20px 40px;
+}
+
+.page-wrapper .page-content {
+  overflow-x: hidden;
+}
+
+/*------scroll bar---------------------*/
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+/* ::-webkit-scrollbar-button {
+  width: 100%;
+  height: 100%;
+} */
+::-webkit-scrollbar-thumb {
+  background: #ccd3d6;
+  border: 0px none #ffffff;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6d6c6c;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #6d6c6c;
+}
+/* ::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+} */
+/* ::-webkit-scrollbar-track:hover {
+  background: transparent;
+}
+::-webkit-scrollbar-track:active {
+  background: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+*/
+::-webkit-scrollbar-track{
+  background-color: #ecf0f5;
+} 

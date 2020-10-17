@@ -1,0 +1,145 @@
+  .dataTables_wrapper{
+    padding: 8px;
+  }
+/* CABEÇALHO */
+  .line-lf{
+    display: flex;
+  }
+  div.dataTables_wrapper div.dataTables_filter {
+    text-align: left;
+  }
+
+  div.dataTables_wrapper div.dataTables_length select, #myDatatable_filter > label > input{
+    border-radius: 8px;
+  }
+
+  div.dt-buttons{
+    float: right !important;
+  }
+  .text-align{
+    display: flex;
+  }
+
+/* BTN OCULTAR COLUNAS */
+  div.dt-button-collection{
+    /* background-color: #d7d9dd; */
+    background-color: transparent;
+  }
+  div.dataTables_wrapper div.dt-buttons button{
+    border: none;
+    background: #d7d9dd;
+    color: #6d6c6c;
+    border-bottom: 1px solid #6d6c6c;
+  }
+  div.dataTables_wrapper div.dt-buttons button > .active{
+    background: red;
+  }
+  div.dt-button-collection button.dt-button.active:not(.disabled){
+    box-shadow: none;
+    background: #fff;
+  }
+  .dt-button.buttons-columnVisibility.active{
+    color:#000;
+  }
+
+/* Buttons */
+  .btn-databtable{
+    border: none!important;
+    background: transparent!important;
+    font-size: 16px!important;
+  }
+  .btn-databtable:hover{
+    color: #e30613!important;
+  }
+
+  .theme-integral .btn-databtable:hover{
+    color: #e30613!important;
+  }
+  .theme-integral table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
+    background-color: #e30613!important;
+  }
+
+  .theme-dark .btn-databtable:hover{
+    color: #000!important;
+  }
+  .theme-dark table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
+    background-color: #000!important;
+  }
+
+  .theme-nutrify .btn-databtable:hover{
+    color: #6bab8a!important;
+  }
+  .theme-nutrify table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
+    background-color: #6bab8a!important;
+  }
+
+  .theme-hopper .btn-databtable:hover{
+    color: #00BC70!important;
+  }
+  .theme-hopper table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before{
+    background-color: #00BC70!important;
+  } 
+  
+  .theme-integral table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+  .theme-dark table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+  .theme-nutrify table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before,
+  .theme-hopper table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before{
+    background-color: #000!important;
+  }
+
+
+  /* ordernação das colunas */
+  .no-sort::after { 
+    display: none!important; 
+  }
+  .no-sort::before { 
+    display: none!important; 
+  }
+
+  /* botao de acoes */
+  .btn-view-dt a{
+    color: #2e353d;
+  }
+
+  
+/* Paginação */
+  .table-pagination{
+    display: flex;
+  }
+
+button.dt-button, div.dt-button, a.dt-button {
+  margin-bottom: 0;
+  padding: 4px;
+}
+.buttons-colvis > .btn-hide-columun{
+  margin: auto;
+}
+
+@media(max-width: 600px){
+  .dataTable-responsive{
+    display: block;
+  }
+  
+  div.dataTables_wrapper div.dataTables_length{
+    text-align: left;
+  }
+
+  div.dt-buttons{
+    text-align: left;
+  }
+
+}
+@media(max-width: 770px){
+  .table-pagination{
+    display: block;
+  }
+}
+
+@media(max-width:320px){
+  .line-lf{
+    display: block;
+  }
+  div.dataTables_wrapper div.dataTables_length select, #myDatatable_filter > label > input{
+    margin: auto;
+  }
+}

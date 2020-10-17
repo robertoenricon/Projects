@@ -1,0 +1,26 @@
+
+.carousel-mb{
+  margin-bottom: 20px;
+}
+
+.carousel-block{
+  width: 62%;
+  /* margin: 0px 0px 10px 100px; */
+  margin: auto;
+}
+
+.carousel-indicators{
+  bottom: -35px;
+}
+.carousel-indicators li {
+  background-color: #d7d9dd;
+}
+.carousel-indicators .active {
+  background-color: red;
+}
+
+@media(max-width:468px){
+  .carousel-block{
+    width: 100%;
+  }
+}

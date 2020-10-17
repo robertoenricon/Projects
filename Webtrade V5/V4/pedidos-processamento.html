@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Title</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="css/bootstrap-v4.css"> -->
+  <!-- FonteAwesome -->
+  <link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+  <!-- Select multiple -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.6/css/bootstrap-select.min.css" rel="stylesheet">
+
+  <!-- DATABASE -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css"> -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.bootstrap4.min.css">
+
+  <!-- datetimepicker  -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/css/bootstrap-datetimepicker.min.css"> -->
+  <!-- <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css"> -->
+
+  <!-- DATE PICKER -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"> -->
+
+  <!-- DATE RANGER -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+  <!-- CSS -->
+  <link href="css/menu.css" rel="stylesheet">
+  <link href="css/menu2.css" rel="stylesheet">
+  <link href="css/pedido-processamento.css" rel="stylesheet">
+  <link href="css/body.css" rel="stylesheet">
+  <link href="css/datatable.css" rel="stylesheet">
+  <link href="css/carousel.css" rel="stylesheet">
+</head>
+
+<body class="thems-skin">
+
+  <header>
+    <nav class="navbar navbar-expand-md">
+      <div class="nav navbar-nav navbar-collapse flex-direction">
+        <!-- <ul class="nav navbar-nav mr-auto flex-direction"> -->
+
+          <li class="nav-item">
+            <a href="#" class="navbar-brand" id="show-sidebar" data-toggle="dropdown">
+              <i class="fas fa-th"></i>
+            </a>
+          </li>
+
+          <!-- CAMINHO PAGE/INCLUSAO -->
+          <li class="nav-item menu-none">
+            <span class="navbar-text page-atual">
+              Webtrade > 
+                <a href="#" class="dropdown links-color" type="button" id="dropdownMenuButton" data-toggle="dropdown"> Sales</a> 
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Procurement</a>
+                </div>
+              > Consulta > Pedidos em Processamento <a href="#" class="btn-new" title="Novo Pedido" data-toggle="tooltip"><i class="fas fa-plus"></i></a>
+            </span>
+          </li>
+          <li class="nav-item menu-none-active">
+            <span class="navbar-text page-atual">
+              Pedidos em Processamento <a href="#" class="btn-new"><i class="fas fa-plus"></i></a>               
+            </span>
+          </li>
+
+          <li class="ml-auto">
+            <!-- NOTIFICAÇÕES -->
+              <li class="dropdown notifications-menu hide-menu menu-none">
+                <a href="#" class="nav-link dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="far fa-bell"></i><span class="label label-notifications-count">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="line-title">Notificações</li>
+                  <li>
+                    <ul class="notifications-list">
+                      <li><a href="#">Mensagem 1</a></li>
+                      <li><a href="#">Mensagem 2</a></li>
+                      <li><a href="#">Mensagem 3</a></li>
+                      <li><a href="#">Mensagem 4</a></li>
+                      <li><a href="#">Mensagem 5</a></li>
+                      <li><a href="#">Mensagem 6</a></li>
+                      <li><a href="#">Mensagem 7</a></li>
+                      <li><a href="#">Mensagem 8</a></li>
+                      <li><a href="#">Mensagem 9</a></li>
+                      <li><a href="#">Mensagem 6</a></li>
+                      <li><a href="#">Mensagem 6</a></li>
+                    </ul>
+                  </li>
+                  <li class="line-footer">
+                    <a href="#">Visualizar todas</a>
+                  </li>
+                </ul>
+              </li>             
+            <!-- END NOTIFICAÇÕES -->
+
+             <!-- PERFIL -->
+              <li class="dropdown user-menu hide-menu">
+                <a href="#" class="nav-link dropdown" data-toggle="dropdown" id="dropdownPerfil">
+                  <img src="img/icon_perfil.jpg" class="user-image" alt="Foto Perfil">
+                  <span class="menu-none">roberto.nicolo</span>
+                </a>
+                <ul class="dropdown-menu" id="dropdownPerfiInfo">              
+                  <li class="user-menu-header">
+                    <div class="row">
+                      <div class="col-4">
+                        <img src="img/icon_perfil.jpg" class="alter-img" id="alter-img" alt="User Image">
+                        <input type="file" id="select-img" style="display: none;">
+                      </div>
+                      <div class="col">
+                        <p class="user-info">
+                          Roberto Enrico Nicolo
+                          <b>590</b><br>
+                          <small><b>Ult. Acesso</b>: 07/08/2020</small><br>
+                          <small><b>IP</b>: 193.10.10.0</small>
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="dropdown-selects">
+                    <div class="col">
+                      <a href="#" id="dropdownVends">Vendedores</a>
+                    </div>
+                    <div class="col">
+                      <a href="#" id="dropdownCarteiras">Carteira</a>
+                    </div>
+                    <div class="col">
+                      <a href="#" id="dropdownFilials">Filial</a>
+                    </div>
+                  </li>
+                  <!-- VEND -->
+                  <li class="dropdownVend" id="dropdownVend">
+                    <div class="col">
+                      <select class="selectpicker form-control" multiple="multiple" data-live-search="true" multiple data-actions-box="true" data-selected-text-format="count">
+                        <option selected value="">Vendedor 1</option>
+                        <option selected value="">Vendedor 2</option>
+                        <option selected value="">Vendedor 3</option>
+                        <option selected value="">Vendedor 4</option>
+                        <option selected value="">Vendedor 4</option>
+                      </select>
+                    </div>
+                  </li>
+                  <!-- CARTEIRA -->
+                  <li class="dropdownCarteira" id="dropdownCarteira">
+                    <div class="col">
+                      <select class="selectpicker form-control">
+                        <option selected value="">Carteira</option>
+                        <option selected value="">Colocado</option>
+                      </select>
+                    </div>
+                  </li>
+                  <!-- FILIAL -->
+                  <li class="dropdownFilial" id="dropdownFilial">
+                    <div class="col">
+                      <select class="selectpicker form-control" multiple>
+                        <option selected value="">00</option>
+                        <option value="">02</option>
+                        <option selected value="">03</option>
+                      </select>
+                    </div>
+                  </li>
+                  <li class="col">
+                    <div class="btn-align">
+                      <button class="btn btn-outline-success btn-sm">Atualizar</button>
+                    </div>
+                  </li>
+                  <hr>
+                  <!-- THEME -->
+                  <li class="block">
+                    <div class="row">
+                      <div class="col">
+                        <span>Layout: </span>
+                      </div>
+                      <div class="col">
+                        <div class="row layout-align">
+                          <!-- INTEGRAL -->
+                          <div id="quadrado-select-integral-active">
+                            <div class="quadrado-header">
+                              <div class="quadrado-sub-header">
+                                <div class="quadrado-integral-active"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="quadrado-select-integral" style="display: none;">
+                            <div class="quadrado-integral" id="theme-integral"></div>
+                          </div>
+                          <!-- DARKNESS -->
+                          <div id="quadrado-select-dark-active" style="display: none;">
+                            <div class="quadrado-header">
+                              <div class="quadrado-sub-header">
+                                <div class="quadrado-dark-active"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="quadrado-select-dark">
+                            <div class="quadrado-dark" id="theme-dark"></div>
+                          </div>
+                          <!-- NUTRIFY -->
+                          <div id="quadrado-select-nutrify-active" style="display: none;">
+                            <div class="quadrado-header">
+                              <div class="quadrado-sub-header">
+                                <div class="quadrado-nutrify-active"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="quadrado-select-nutrify">
+                            <div class="quadrado-nutrify" id="theme-nutrify"></div>
+                          </div>
+                          <!-- HOPPER -->
+                          <div id="quadrado-select-hopper-active" style="display: none;">
+                            <div class="quadrado-header">
+                              <div class="quadrado-sub-header">
+                                <div class="quadrado-hopper-active"></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="quadrado-select-hopper">
+                            <div class="quadrado-hopper" id="theme-hopper"></div>
+                          </div>
+                        </div>  
+                      </div>
+                    </div>
+                  </li>
+                  <!-- MENSAGENS -->
+                  <hr class="menu-none-active">
+                  <li class="col mensagens-perfil menu-none-active">
+                    <a href="#">Mensagens<span class="label-responsive label-notifications-count-responsive">10</span></a>
+                  </li>
+                  <hr>
+                  <li class="col">
+                    <div class="user-footer">
+                      <button class="btn btn-outline-primary btn-sm">Trocar Senha</button>
+                      <button class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt"></i>&nbsp;Sair</button>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            <!-- END PERFIL -->
+          </li>
+
+        <!-- </ul> -->
+        
+      </div>
+
+    </nav>
+  </header>
+
+
+  <section>
+    <div class="page-wrapper chiller-theme">
+
+      <nav id="sidebar" class="sidebar-wrapper">
+        <div class="sidebar-content">
+          <ul>
+            <li class="menu-left-button">
+              <a href="#" class="navbar-brand" id="hide-sidebar">
+                <i class="fas fa-th"></i>
+              </a>
+          </ul>
+
+          <div class="mt-img">
+            <img src="img/logo-webtrade.png" class="img-width">
+            <span class="line-left-img"></span>
+            <img src="img/logo-integral.png" class="img-width">
+          </div>
+          
+          <!-- MENU -->
+          <div class="sidebar-menu">
+            <ul>
+              <li class="col block-link-modulo">
+                <a href="#" class="dropdown" type="button" id="dropdownMenu-modulo-active" data-toggle="dropdown"> 
+                  <span> <b>Sales</b> <i class="fas fa-angle-down fa-xs"></i> </span>
+                </a> 
+                <div class="dropdown-menu">
+                  <a href="#" class="dropdown-item" id="dropdownMenu-modulo-webtrade">Sales <i class="fas fa-angle-down"></i> </a>
+                  <a href="#" class="dropdown-item" id="dropdownMenu-modulo-procurement">Procurement <i class="fas fa-angle-down"></i> </a>
+                  <a href="#" class="dropdown-item" id="dropdownMenu-modulo-tax">Tax & Accounting <i class="fas fa-angle-down"></i> </a>
+                </div>
+              </li>
+              <!-- WEBTRADE -->
+              <div class="col" id="modulo-webtrade">
+                <div class="block-links">
+                  <!-- INSERIR -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-paper-plane"></i>
+                      <span>Inserir</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Ativação</a></li>
+                        <li><a href="#">Bloqueio de Produtos</a></li>
+                        <li><a href="#">Combo</a></li>
+                        <li><a href="#">Compromisso</a></li>
+                        <li><a href="#"><b>Lead</b></a></li>
+                        <li><a href="#">Marketplaces</a></li>
+                        <li><a href="#">Marketplaces Produtos</a></li>
+                        <li><a href="#">Mensagem</a></li>
+                        <li><a href="#"><b>Pedido</b></a></li>
+                        <li><a href="#">Pedido (Logística)</a></li>
+                        <li><a href="#">Promoção</a></li>
+                        <li><a href="#">Roteiro de Atividades</a></li>
+                        <li><a href="#">Solicitações de Trade</a></li>
+                        <li><a href="#">Tarefas</a></li>
+                        <li><a href="#">Vídeo</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- CONSULTAR -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-book-open fa-lg"></i>
+                      <span>Consultar</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Ativação</a></li>
+                        <li><a href="#">Bloqueio de Produtos</a></li>
+                        <li><a href="#">Clientes</a></li>
+                        <li><a href="#">Combo</a></li>
+                        <li><a href="#">Compromisso</a></li>
+                        <li><a href="#">Devoluções</a></li>
+                        <li><a href="#">Faturamento Categoria</a></li>
+                        <li><a href="#"><b>Leads</b></a></li>
+                        <li><a href="#">Marketplaces</a></li>
+                        <li><a href="#">Marketplaces Produtos</a></li>
+                        <li><a href="#">Mensagens</a></li>
+                        <li><a href="#">Monitoramento de Preços</a></li>
+                        <li><a href="#"><b>Notas Fiscais</b></a></li>
+                        <li><a href="#"><b>Notas Fiscais Entrada</b></a></li>
+                        <li><a href="#"><b>Pedido de Compra</b></a></li>
+                        <li><a href="#"><b>Pedido em Processamento</b></a></li>
+                        <li><a href="#"><b>Pedido Importados</b></a></li>
+                        <li><a href="#">Produtos</a></li>
+                        <li><a href="#">Promoções</a></li>
+                        <li><a href="#">Roteiros de Atividades</a></li>
+                        <li><a href="#"><b>Solicitações de Compra</b></a></li>
+                        <li><a href="#">Tarefas</a></li>
+                        <li><a href="#"><b>Títulos</b></a></li>
+                        <li><a href="#">Vídeos</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- RELATORIO -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-chart-pie"></i>
+                      <span>Relatórios</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Análise de orçamento</a></li>
+                        <li><a href="#">Clientes X Evento</a></li>
+                        <li><a href="#">Cobertura Mix Ideal</a></li>
+                        <li><a href="#">Conta Corrente de Clientes</a></li>
+                        <li><a href="#">Curva ABC de Clientes</a></li>
+                        <li><a href="#">Curva ABC de Produtos</a></li>
+                        <li><a href="#">Metas Gerais</a></li>
+                        <li><a href="#">Metas por SKU</a></li>
+                        <li><a href="#">Monitoramento de Vendas</a></li>
+                        <li><a href="#"><b>Pedidos ou NFs de Venda</b></a></li>
+                        <li><a href="#">Política de TI e Ética</a></li>
+                        <li><a href="#">Positivação</a></li>
+                        <li><a href="#">Preços</a></li>
+                        <li><a href="#">Preços - Resumo</a></li>
+                        <li><a href="#">Roteiro de Atividade</a></li>
+                        <li><a href="#">SLA Entregas</a></li>
+                        <li><a href="#">Vendas Acumuladas por Clientes</a></li>
+                        <li><a href="#">Vendas Acumuladas por Produtos</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-play-circle fa-lg"></i><span>Vídeos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-chart-line fa-lg"></i><span>Planejamento</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-info-circle fa-lg"></i><span>Suporte</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-cog fa-lg"></i><span>Configurações</span>
+                    </a>
+                  </li>
+                </div>
+              </div>
+              <!-- Procurement -->
+              <div class="col" id="modulo-procurement" style="display: none;">
+                <div class="block-links">
+                  <!-- COTAÇÃO -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-paper-plane"></i>
+                      <span>Cotações</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Contratos</a></li>
+                        <li><a href="#">Cotações</a></li>
+                        <li><a href="#">Nova Cotação</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- SC -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-file-signature"></i>
+                      <span>Solicitações de Compra</span>
+                    </a>
+                  </li>
+                  <!-- PC -->
+                  <li>
+                    <a href="#">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span>Pedidos de Compra</span>
+                    </a>
+                  </li>
+                  <!-- RELATORIO -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-chart-pie"></i>
+                      <span>Relatórios</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Fornecedor x Cotação</a></li>
+                        <li><a href="#">Posição X Entrega x Item</a></li>
+                        <li><a href="#">Produtos x Valor Médio</a></li>
+                        <li><a href="#">Produtos x Valor Orçado</a></li>
+                        <li><a href="#">Produtos x Último Custo</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- Fornecedores -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-truck-moving"></i>
+                      <span>Fornecedores</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Consultar</a></li>
+                        <li><a href="#">Grupos</a></li>
+                        <li><a href="#">Inserir Grupo</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- INFO EMPRESA -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-info-circle"></i>
+                      <span>Info da Empresa</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Categorias</a></li>
+                        <li><a href="#">Dados da Empresa</a></li>
+                        <li><a href="#">Informações Bancárias</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                  <!-- CONFIG -->
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-user-cog"></i>
+                      <span>Configurações</span>
+                      <i class="fas fa-angle-down" id="icon-seta"></i>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li><a href="#">Categorias</a></li>
+                        <li><a href="#">Cotação</a></li>
+                        <li><a href="#">Empresa Provida</a></li>
+                        <li><a href="#">Grupo Econômico</a></li>
+                        <li><a href="#">Rotina Contrato</a></li>
+                        <li><a href="#">Usuários</a></li>
+                      </ul>
+                    </div>
+                  </li>
+                </div>
+              </div>
+              <!-- Tax & Accounting -->
+              <div class="col" id="modulo-tax" style="display: none;">
+                <div class="block-links">
+                  <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fas fa-chart-pie"></i>
+                      <span>Análise de orçamento</span>
+                    </a>
+                    <a href="#">
+                      <i class="fas fa-barcode"></i>
+                      <span>Notas fiscais de entrada</span>
+                    </a>
+                  </li>
+                </div>
+              </div>
+            </ul>
+          </div>
+          <!-- sidebar-menu  -->
+        
+        </div>
+      </nav>
+
+      <!-- sidebar-wrapper  -->
+      <main class="page-content hide-menu">
+        <div class="container-fluid">
+  
+          <!-- FILTRO -->
+          <div class="block">
+            <div class="row">
+              <div class="col-sm-3">
+                <input type="text" class="form-control form-data" id="daterangepicker" placeholder="Selecionar data">
+              </div>
+              <div class="col form-buttons">
+                <select class="form-control form-data" title="Situação" data-toggle="tooltip">
+                  <option value="">Aguard. Importação</option>
+                  <option value="">Importado</option>
+                  <option value="">Todos</option>
+                  <option value="">Rascunho</option>
+                </select>
+                <button type="button" id="filtro_show_hide" class="btn btn-outline-dark btn-sm" title=" + filtros" data-toggle="tooltip">
+                  <i class="fas fa-chevron-down fa-xs"></i>
+                </button>&nbsp;
+                <button type="button" id="filtro_show_hide" class="btn btn-outline-primary btn-sm" title="Atualizar" data-toggle="tooltip">
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- FILTRO HIDE -->
+          <div id="filtro" class="filtro" style="display: none;">
+            <div class="block">
+              <div class="row menu-none-active">
+                <div class="col">
+                  <h6><b class="filter-avanced">Filtro Avançado:</b></h6>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">
+                  <!-- <div class="block"> -->
+                  <input type="text" class="form-control form-data form-respon" placeholder="Cod. Webtrade">
+                  <input type="text" class="form-control form-data form-respon" placeholder="Cod. Cliente">
+                  <select class="form-control form-data form-respon" title="Status Gerencial" data-toggle="tooltip">
+                    <option value="">Todos</option>
+                    <option value="">Aguard. Aprovação</option>
+                    <option value="">Aprovado</option>
+                    <option value="">Reprovado</option>
+                  </select>
+                  <!-- </div> -->
+                </div>
+  
+                <div class="col-sm">
+                  <!-- <div class="block"> -->
+                  <input type="text" class="form-control form-data form-respon" placeholder="Cod. Microsiga">
+                  <select class="form-control form-data" title="Exibir pedido excluidos?" data-toggle="tooltip">
+                    <option value="">Aguard. Importação</option>
+                    <option value="">Importado</option>
+                    <option value="">Todos</option>
+                    <option value="">Rascunho</option>
+                  </select>
+                  <select class="form-control form-data form-respon" title="Status Trade" data-toggle="tooltip">
+                    <option value="">Todos</option>
+                    <option value="">Aguard. Aprovação</option>
+                    <option value="">Aprovado</option>
+                    <option value="">Reprovado</option>
+                  </select>
+                  <!-- </div> -->
+                </div>
+  
+                <div class="col-sm">
+                  <!-- <div class="block"> -->
+                  <input type="text" class="form-control form-data form-respon" placeholder="CNPJ">
+                  <select class="form-control form-data" title="Origem dos Pedidos" data-toggle="tooltip">
+                    <option value="">Todos</option>
+                    <option value="">ADM</option>
+                    <option value="">Aútomatico Ruptura</option>
+                    <option value="">Contato</option>
+                    <option value="">Gerente</option>
+                    <option value="">Vendedor</option>
+                  </select>
+                  <!-- </div> -->
+                </div>
+                <br>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+          <br>
+  
+          <!-- BOX TOTAL-->
+          <div class="row menu-none">
+            <div class="col-sm">
+              <div class="block block-success">
+                <h6>Qtd. Pedidos</h6>
+                <div class="block-aling">
+                  <!-- <div> -->
+                  <!-- <span class="badge badge-soft-success mt-n1">+2%</span> -->
+                  <!-- </div> -->
+                </div>
+                <div class="block-aling">
+                  <div class="mb-0 width-icon">
+                    <span><i class="fas fa-suitcase"></i></span>
+                  </div>
+                  <div class="total-text-info"><span>240.000</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="block block-success">
+                <h6>Total Vendido</h6>
+                <div class="block-aling">
+                  <div class="mb-0 width-icon">
+                    <span><b>R$</b></span>
+                  </div>
+                  <div class="total-text-info"><span>500.000</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="block block-danger">
+                <h6>Boni. Trade</h6>
+                <div class="block-aling">
+                  <div class="mb-0 width-icon">
+                    <span><b>R$</b></span>
+                  </div>
+                  <div class="total-text-info"><span>100.000</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              <div class="block block-success">
+                <h6>Boni. Gerencial</h6>
+                <div class="block-aling">
+                  <div class="mb-0 width-icon">
+                    <span><b>R$</b></span>
+                  </div>
+                  <div class="total-text-info"><span>400.000</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="carouselExampleIndicators" class="carousel slide carousel-mb menu-none-active" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+            </ol>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="block block-success carousel-block">
+                  <h6>Qtd. Pedidos</h6>
+                  <div class="block-aling">
+                    <!-- <div> -->
+                    <!-- <span class="badge badge-soft-success mt-n1">+2%</span> -->
+                    <!-- </div> -->
+                  </div>
+                  <div class="block-aling">
+                    <div class="mb-0 width-icon">
+                      <span><i class="fas fa-suitcase"></i></span>
+                    </div>
+                    <div class="total-text-info"><span>240.000</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="block block-success carousel-block">
+                  <h6>Total Vendido</h6>
+                  <div class="block-aling">
+                    <div class="mb-0 width-icon">
+                      <span><b>R$</b></span>
+                    </div>
+                    <div class="total-text-info"><span>500.000</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="block block-danger carousel-block">
+                  <h6>Boni. Trade</h6>
+                  <div class="block-aling">
+                    <div class="mb-0 width-icon">
+                      <span><b>R$</b></span>
+                    </div>
+                    <div class="total-text-info"><span>100.000</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="block block-success carousel-block">
+                  <h6>Boni. Gerencial</h6>
+                  <div class="block-aling">
+                    <div class="mb-0 width-icon">
+                      <span><b>R$</b></span>
+                    </div>
+                    <div class="total-text-info"><span>400.000</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>       
+
+          <br>
+          <!-- DATA TABLE -->
+          <div class="block">
+            <table id="myDatatable" class="table table-hover dt-responsive" width="100%">
+              <thead>
+                <tr>
+                  <th class="no-sort"><input type="checkbox" id="exampleCheck1"></th>
+                  <th>Filial</th>
+                  <th>Webtrade</th>
+                  <th>Microsiga</th>
+                  <th>Cliente</th>
+                  <th>Vendedor</th>
+                  <th>Data</th>
+                  <th>Transportadora</th>
+                  <th>Situação</th>
+                  <th>Importado por</th>
+                  <th>CNPJ</th>
+                  <th>Data imp.</th>
+                  <th>Cond Pgto</th>
+                  <th>Desconto Médio</th>
+                  <th>Valor BG</th>
+                  <th>Valor BT</th>
+                  <th>Valor Total</th>
+                  <th class="no-sort">Ações</th>
+                  <th>ID Combo</th>
+                  <th>Título</th>
+                  <th>Origem do Pedido</th>
+                  <th>Data Apr. Gerencial</th>
+                  <th>Usúario Apr. Gerencial</th>
+                  <th>Data Apr. Trade</th>
+                  <th>Usúario Apr. Trade</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="checkbox" id="exampleCheck1"></td>
+                  <td>00</td>
+                  <td>160682</td>
+                  <td>-</td>
+                  <td>
+                    <button type="button" class="btn-modal" data-toggle="modal" data-target="#idCliente">
+                      <a href="#"
+                        data-original-title="000347/01 - GALVANINI & QUEIROZ - COMERCIO DE PRODUTOS ALIMENTICIOS - LT"
+                        data-toggle="tooltip">000347/01 - GALVANINI & QUEIROZ...</a>
+                    </button>
+                  </td>
+                  <td>999999</td>
+                  <td>10/07/2020</td>
+                  <td>Jamef</td>
+                  <td>Rascunho</td>
+                  <td>roberto.nicolo</td>
+                  <td>11321975000138</td>
+                  <td>10/07/2020</td>
+                  <td>07 DDD</td>
+                  <td>20%</td>
+                  <td>100</td>
+                  <td>20</td>
+                  <td>132,90</td>
+                  <td>
+                    <div class="dropdown dropleft">
+                      <a class="btn btn-outline-danger dropdown btn-sm" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Ações
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#" data-original-title="Novo pedido para este cliente"
+                          data-toggle="tooltip"><i class="fas fa-plus"></i> Novo Pedido</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-eye"></i> Visualizar Pedido</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-edit"></i> Editar Pedido</a>
+                      </div>
+                    </div>
+                  </td>
+                  <td>608</td>
+                  <td>3423423432432423</td>
+                  <td>Webtrade</td>
+                  <td>17/07/2020</td>
+                  <td>fabio.henrique</td>
+                  <td>17/07/2020</td>
+                  <td>fabio.tarso</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+
+          <!-- MODAL -->
+          <div class="modal fade" id="idCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    000347/01 - GALVANINI & QUEIROZ - COMERCIO DE PRODUTOS ALIMENTICIOS - LT
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <button type="button" class="btn btn-outline-info form-data" id="btn-dadosCadastrais">Dados Cadastrais</button>
+                  <button type="button" class="btn btn-outline-info form-data" id="btn-dadosEnderecos">Endereços</button>
+                  <div class="dadosCadastrais">
+                    <br>
+                    Código/Loja: 031605/01
+                  </div>
+                  <div class="dadosEnderecos" style="display: none;">
+                    <br>
+                    Endereço de Faturamento
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  sdasdas
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </main>
+
+    </div>
+  </section>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+
+  <script src="js/eventos.js"></script>
+  <script src="js/pedidos-processamento.js"></script>
+
+  <!-- MODAL -->
+  <script src="js/modal.js"></script>
+
+  <!-- DATA TABLE -->
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap4.min.js"></script>
+
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+  <script src="js/datatable.js"></script>
+
+  <!-- SELECT PICKER -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
+
+  <!-- DATE RANGER -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+  <script type="text/javascript" src="js/daterangepicker.js"></script>
+
+</body>
+
+</html>

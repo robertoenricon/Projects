@@ -19,6 +19,7 @@ $(this).val(this.value.match(/[0-9]*/));
 
 $('#CdWebtrade').on('keypress', function(){
         var regex = new RegExp('[0-9\b-]+$');
+var regex = new RegExp('[0-9-]+$');
         setTimeout(function(){
             var val = $('#CdWebtrade').val();
             if(!regex.test(val)){

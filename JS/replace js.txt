@@ -5,3 +5,7 @@ cep.replace(/(?!(\d))([\w\.\/\-])/g,'')
 
 
 value.replace(/[']/g, ''); //espaço em branco
+
+val = val.replace(/[^a-z0-9]/g, '');
+
+
