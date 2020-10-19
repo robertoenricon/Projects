@@ -1,13 +1,3 @@
-<?php 
-
-require_once 'conexao.php';
-
-$sql = "SELECT * FROM crud_ajax";
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-
-?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -76,8 +66,19 @@ $stmt->execute();
             </tr>
           </thead>
           
+          <!-- RESULTADOS -->
           <tbody id="listar"></tbody>
+          <!-- MODAL -->
           <div id="modalAjax"></div>
+          <!-- PAGINAÇÃO -->
+          <nav aria-label="Page navigation example"> 
+            <input type="hidden" id="pag" value="<?php echo isset($_GET['pag']) ? $_GET['pag'] : ''; ?>">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" id="previous">Previous</a></li>
+              <ul class="pagination" id="pagination"></ul>
+              <li class="page-item"><a class="page-link" id="next">Next</a></li>
+            </ul>
+          </nav>
 
         </table>
       </div>
@@ -92,7 +93,6 @@ $stmt->execute();
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
 
     <script>
     $(document).ready(function(){
@@ -138,32 +138,26 @@ $stmt->execute();
               '</form>'
             );
             $('#count').find('span').html(json.length);
+
+            //UPDATE
+            $('.update-'+index.id).click(function(){
+              var idUpdate = $(this).attr('id');
+              $('#modalAjax, .formUpdate-' + index.id).bind('submit', function(event) {
+                event.preventDefault();
+                console.log('update: '+idUpdate);
+                alterar(idUpdate);
+              });
+            });
+
+            //DELETE
+            $('.delete-'+index.id).click(function(){
+              var idDeleted = $(this).attr('id');
+              console.log('delete: '+idDeleted);
+              deletar(idDeleted);
+            });
+
           });
         }
-      }
-
-      function inserir(paramInsert){
-        var json = paramInsert;
-        $.each(json, function(i, index) {
-          
-          //UPDATE
-          $('.update-'+index.id).click(function(){
-            var idUpdate = $(this).attr('id');
-            $('#modalAjax, .formUpdate-' + index.id).bind('submit', function(event) {
-              event.preventDefault();
-              console.log('update: '+idUpdate);
-              alterar(idUpdate);
-            });
-          });
-
-          //DELETE
-          $('.delete-'+index.id).click(function(){
-            var idDeleted = $(this).attr('id');
-            console.log('delete: '+idDeleted);
-            deletar(idDeleted);
-          });
-
-        });
       }
 
       function alterar(paramUpdat){
@@ -182,7 +176,7 @@ $stmt->execute();
           if(result.value === true) {
             $.ajax({
               type: 'POST',
-              url: 'alterar.php',
+              url: 'DAO/alterar.php',
               data: $('.formUpdate-' + idUpdate).serialize(),
               beforeSend: function() {
                 $('.update-'+idUpdate).html('Aguarde...');
@@ -221,8 +215,10 @@ $stmt->execute();
           if(result.value === true) {
             $.ajax({
               type: 'POST',
-              url: 'deletar.php',
-              data: {'id' : idDeleted},
+              url: 'DAO/deletar.php',
+              data: {
+                'id' : idDeleted
+              },
               beforeSend: function() {
                 $('.delete-'+idDeleted).html('Aguarde...');
               },
@@ -247,13 +243,23 @@ $stmt->execute();
       }
 
       //LISTAR > UPDATE > DELETE
+      var pag = $('#pag').val();
+      console.log(pag);
       $.ajax({
-        type: 'GET',
-        url: 'listar.php',
+        type: 'POST',
+        url: 'DAO/listar.php',
+        data: {
+          'pag'      : 10,
+          'pag_url'  : pag
+        },
         success: function(success) {
-          json = JSON.parse(success);
-          listar(json);
-          $.each(json, function(i, index) {
+          json = JSON.parse(success);          
+          json = json[0];
+
+          console.log(json);
+
+          listar(json.registros);
+          $.each(json.registros, function(i, index) {
             
             //UPDATE
             $('.update-'+index.id).click(function(){
@@ -274,6 +280,12 @@ $stmt->execute();
 
           });
 
+          for(i=1; i <= json.pag; i++){
+            $('#pagination').append(
+              '<li class="page-item"><a class="page-link" href="index.php?pag='+i+'">'+i+'</a></li>'
+            );
+          }
+
         },
       });
       
@@ -281,15 +293,13 @@ $stmt->execute();
         event.preventDefault();
         $.ajax({
           type: 'POST',
-          url: 'cadastrar.php',
+          url: 'DAO/cadastrar.php',
           data: $('#form-cadastrar').serialize(),
           success: function(success) {
+            json = JSON.parse(success);
             $("#nome").val(''); 
             $("#idade").val('');
-
-            json = JSON.parse(success);
             listar(json);
-            inserir(json);
           }
         });
       });
