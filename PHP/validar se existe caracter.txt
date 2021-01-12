@@ -1,0 +1,8 @@
+$pattern = '/,/';
+				if (preg_match($pattern, $paramDataTable['search'])) {
+					$paramDataTable['search'] = explode(',', $paramDataTable['search']);
+					foreach($paramDataTable['search'] as $val){
+						$removendo_espaço[] = ltrim($val);
+					}
+					$paramDataTable['search'] = implode(',', $removendo_espaço);
+				}
