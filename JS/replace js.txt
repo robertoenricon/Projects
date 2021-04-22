@@ -4,7 +4,11 @@ remove caracter do cep
 cep.replace(/(?!(\d))([\w\.\/\-])/g,'')
 
 
-value.replace(/[']/g, ''); //espaço em branco
+// ESPAÇO EM BRANCO
+var val = $(valid).val();
+val = val.replace(/[^a-zA-Z0-9/@.]/g, '');
+$(valid).val(val);
+
 
 val = val.replace(/[^a-z0-9]/g, '');
 

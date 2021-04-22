@@ -27,3 +27,9 @@ var regex = new RegExp('[0-9-]+$');
             }
         }, 100);
     })
+
+
+//regex para telefone
+
+
+//regex para celular
