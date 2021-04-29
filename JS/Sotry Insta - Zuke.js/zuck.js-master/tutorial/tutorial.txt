@@ -1,0 +1,14 @@
+
+* Usar o modo Insta *
+
+CSS
+
+zuck.min.css
+snapgram.css
+
+JS 
+
+zuck.min.js
+script.js
+
+Obs: Arquivo home.js contem o Ajax que vc vai alimentar o Story
