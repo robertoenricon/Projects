@@ -228,3 +228,7 @@ function ConfettiGenerator(params) {
 				clear: _clear
 			}
 		}
+
+	confetti = new ConfettiGenerator();
+								confetti.render();
+
